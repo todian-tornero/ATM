@@ -1,9 +1,10 @@
 public class Card {
     private AccountNumber number;
-    private int secretNumber;
-    private String cardType, cardNumber, mounth, year, userName;
+    private int secretNumber, pin, mounth, year;
+    private String cardType, cardNumber, userName, bankName;
 
-    public Card(AccountNumber number, int secretNumber, String cardType, String cardNumber, String mounth, String year, String userName) {
+    public Card(String bankName, AccountNumber number, int secretNumber, String cardType, String cardNumber, int mounth, int year, String userName, int pin) {
+        this.bankName = bankName;
         this.number = number;
         this.secretNumber = secretNumber;
         this.cardType = cardType;
@@ -11,6 +12,7 @@ public class Card {
         this.mounth = mounth;
         this.year = year;
         this.userName = userName;
+        this.pin = pin;
     }
 
     public String getCardType() {
@@ -21,15 +23,35 @@ public class Card {
         return cardNumber;
     }
 
-    public String getMounth() {
+    public int getMounth() {
         return mounth;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
     public String getUserName() {
         return userName;
+    }
+
+    public int getPin() {
+        return pin;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public String toString() {
+
+        return "_________________________"+ "\n" +
+                "|  " + bankName + "             |" + "\n" +
+                "|                       |" + "\n" +
+                "|                       |" + "\n" +
+                "|  " + cardNumber + "  |" + "\n" +
+                "|         " + mounth + "/" + year + "         |" + "\n" +
+                "| " + userName + "    " + cardType + " |" + "\n" +
+                "|_______________________|";
     }
 }

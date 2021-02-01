@@ -8,6 +8,7 @@ public class ATM implements OperationATM{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         ATM atm = new ATM();
+        Card card = new Card("СБЕРБАНК", new AccountNumber(123456789), 000, "VISA", "1234 1234 1234 1234", 12, 23, "DMITRIY TOKAR", 1234);
         atm.greeting();
         System.out.println("***********************************");
         System.out.println("Вставить карту? Y/N");
@@ -16,6 +17,12 @@ public class ATM implements OperationATM{
             if ("Y".equals(reader.readLine())) {
                 atm.cardOnATM = true;
                 atm.requestPin();
+                if (Integer.parseInt(reader.readLine()) == card.getPin()){
+                    System.out.println(card.toString());
+                }
+                else {
+                    System.out.println("Введен неверный PIN-код");
+                }
             }
         }
         catch (IOException e){
