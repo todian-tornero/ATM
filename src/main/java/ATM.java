@@ -1,3 +1,4 @@
+import javax.swing.plaf.nimbus.AbstractRegionPainter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,18 +17,30 @@ public class ATM implements OperationATM{
         try {
             if ("Y".equals(reader.readLine())) {
                 atm.cardOnATM = true;
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+        try {
+            while ((card.getCardBlock() < 3)) {
                 atm.requestPin();
-                if (Integer.parseInt(reader.readLine()) == card.getPin()){
-                    System.out.println(card.toString());
+                if (Integer.parseInt(reader.readLine()) != card.getPin()){
+                    card.counterCardBlock();
+                    System.out.println("Введён неверный PIN-код");
                 }
-                else {
-                    System.out.println("Введен неверный PIN-код");
+                else{
+                    System.out.println("OK");
+                    break;
                 }
             }
         }
         catch (IOException e){
             e.printStackTrace();
         }
+
+
     }
 
     @Override

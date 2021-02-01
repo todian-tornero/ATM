@@ -1,6 +1,6 @@
 public class Card {
     private AccountNumber number;
-    private int secretNumber, pin, mounth, year;
+    private int secretNumber, pin, mounth, year, cardBlock = 0;
     private String cardType, cardNumber, userName, bankName;
 
     public Card(String bankName, AccountNumber number, int secretNumber, String cardType, String cardNumber, int mounth, int year, String userName, int pin) {
@@ -13,6 +13,14 @@ public class Card {
         this.year = year;
         this.userName = userName;
         this.pin = pin;
+    }
+
+    public void counterCardBlock(){
+        cardBlock++;
+    }
+
+    public int getCardBlock(){
+        return cardBlock;
     }
 
     public String getCardType() {
