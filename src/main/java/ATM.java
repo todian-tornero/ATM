@@ -56,16 +56,26 @@ public class ATM implements OperationATM{
                     case (1):
                         System.out.println(card.getBalance());
                     break;
-                    case (2): card.setBalance(atm.cash());
+                    case (2):
+                        card.setBalance(atm.cash());
 //                        System.out.println(card.getBalance());
                         break;
-                    case (3):System.out.println(card.getBalance());
+                    case (3):
                         card.setBalance(atm.refill());
-                        System.out.println(card.getBalance());
+                        Thread.sleep(800);
+                        System.out.println("ТРРРРРРРРРРРРРРРРР");
+                        Thread.sleep(800);
+                        System.out.println("Заберите карту");
+                        Thread.sleep(800);
+                        System.out.println("Заберите деньги");
+                        atm.cardOnATM = false;
                         break;
+                    case (4):
+                        System.out.println("Заберите карту");
+                        atm.cardOnATM = false;
                 }
             }
-            catch (IOException e){
+            catch (IOException | InterruptedException e){
                 e.printStackTrace();
             }
         }
@@ -126,7 +136,9 @@ public class ATM implements OperationATM{
             break;
             case (6):cash = -5000;
             break;
-            case (7):cash = Integer.parseInt(reader.readLine());
+            case (7):
+                System.out.println("Введите сумму");
+                cash = -(Integer.parseInt(reader.readLine()));
             break;
         }
         return cash;
