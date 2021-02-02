@@ -7,77 +7,82 @@ import java.io.InputStreamReader;
 
 public class ATM implements OperationATM{
     public boolean cardOnATM = false;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         ATM atm = new ATM();
         Card card = new Card("СБЕРБАНК", new AccountNumber(123456789), 000, "VISA", "1234 1234 1234 1234", 12, 23, "DMITRIY TOKAR", 1234);
-        atm.greeting();
-        System.out.println("***********************************");
-        System.out.println("Вставить карту? Y/N");
-        System.out.println("***********************************");
-        try {
-            String s = reader.readLine();
-            if ("Y".equals(s)) {
-                atm.cardOnATM = true;
-            }
-            else if ("N".equals(s)){
-                System.out.println("Зачем ты тогда пришёл?");
-            }
-            else {
-                atm.cardOnATM = true;                     //Тестировочный блок
-                System.out.println(card.toString());
-                atm.cardOnATM = false;
-            }
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-
-        if (atm.cardOnATM == true){
+        while (true) {
+            atm.greeting();
+            System.out.println("***********************************");
+            System.out.println("Вставить карту? Y/N");
+            System.out.println("***********************************");
             try {
-                while ((card.getCardBlock() < 3)) {
-                    atm.requestPin();
-                    if (Integer.parseInt(reader.readLine()) != card.getPin()) {
-                        card.counterCardBlock();
-                        System.out.println("Введён неверный PIN-код");
-                    } else {
-                        System.out.println("OK");
-                        break;
-                    }
+                String s = reader.readLine();
+                if ("Y".equals(s)) {
+                    atm.cardOnATM = true;
+                } else if ("N".equals(s)) {
+                    System.out.println("Зачем ты тогда пришёл?");
+                } else if ("exit".equals(s)){
+                    break;}
+                else {
+                    atm.cardOnATM = true;                     //Тестировочный блок
+                    System.out.println(card.toString());
+                    atm.cardOnATM = false;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (card.getCardBlock() == 3) {
-                System.out.println("Карта заблокирована");
-            }
-            atm.mainMenu();
-            try {
-                switch (Integer.parseInt(reader.readLine())){
-                    case (1):
-                        System.out.println(card.getBalance());
-                    break;
-                    case (2):
-                        card.setBalance(atm.cash());
-//                        System.out.println(card.getBalance());
-                        break;
-                    case (3):
-                        card.setBalance(atm.refill());
-                        Thread.sleep(800);
-                        atm.audio();
-                        Thread.sleep(800);
-                        System.out.println("Заберите карту");
-                        System.out.println("Заберите деньги");
-                        atm.cardOnATM = false;
-                        break;
-                    case (4):
-                        System.out.println("Заберите карту");
-                        atm.cardOnATM = false;
+
+            if (atm.cardOnATM == true) {
+                try {
+                    while ((card.getCardBlock() < 3)) {
+                        atm.requestPin();
+                        if (Integer.parseInt(reader.readLine()) != card.getPin()) {
+                            card.counterCardBlock();
+                            System.out.println("Введён неверный PIN-код");
+                        } else {
+                            System.out.println("OK");
+                            break;
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }
-            catch (IOException | InterruptedException e){
-                e.printStackTrace();
+                if (card.getCardBlock() == 3) {
+                    System.out.println("Карта заблокирована");
+                }
+                atm.mainMenu();
+                while (atm.cardOnATM == true) {
+                    int s = Integer.parseInt(reader.readLine());
+                    try {
+                        switch (s) {
+                            case (1):
+                                System.out.println(card.getBalance());
+                                atm.mainMenu();
+                                break;
+                            case (2):
+                                card.setBalance(atm.cash());
+                                atm.mainMenu();
+                                break;
+                            case (3):
+                                card.setBalance(atm.refill());
+                                Thread.sleep(800);
+                                atm.audio();
+                                System.out.println("Заберите карту");
+                                System.out.println("Заберите деньги");
+                                atm.cardOnATM = false;
+                                break;
+                            case (4):
+                                System.out.println("Заберите карту");
+                                atm.cardOnATM = false;
+                                break;
+                            default:break;
+                        }
+                    } catch (IOException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
