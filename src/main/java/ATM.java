@@ -18,19 +18,18 @@ public class ATM implements OperationATM{
             System.out.println("Вставить карту? Y/N");
             System.out.println("***********************************");
             try {
-                String s = reader.readLine();
+                String temp = reader.readLine(),
+                s = temp.toUpperCase();
                 if ("Y".equals(s)) {
                     atm.cardOnATM = true;
                 } else if ("N".equals(s)) {
                     System.out.println("Зачем ты тогда пришёл?");
-                } else if ("exit".equals(s)){
+                } else if ("EXIT".equals(s)){
                     break;}
                 else {
-                    atm.cardOnATM = true;                     //Тестировочный блок
-                    //System.out.println(card.toString());
-                    int q = atm.refill();
-                    System.out.println(q);
-                    atm.cardOnATM = false;
+                    String q = reader.readLine(), qq;
+                    qq = q.toUpperCase();
+                    System.out.println(qq);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
