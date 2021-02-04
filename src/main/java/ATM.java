@@ -27,7 +27,9 @@ public class ATM implements OperationATM{
                     break;}
                 else {
                     atm.cardOnATM = true;                     //Тестировочный блок
-                    System.out.println(card.toString());
+                    //System.out.println(card.toString());
+                    int q = atm.refill();
+                    System.out.println(q);
                     atm.cardOnATM = false;
                 }
             } catch (IOException e) {
@@ -66,15 +68,21 @@ public class ATM implements OperationATM{
                                 atm.mainMenu();
                                 break;
                             case (3):
-                                card.setBalance(atm.refill());
+                                int temp = -atm.refill();
+                                if (temp < card.getBal()){
+                                card.setBalance(-temp);
                                 Thread.sleep(800);
                                 atm.audio();
                                 System.out.println("Заберите карту");
                                 System.out.println("Заберите деньги");
                                 atm.cardOnATM = false;
+                                break;}
+                                else System.out.println("Недостаточно средств");
+                                atm.mainMenu();
                                 break;
                             case (4):
                                 System.out.println("Заберите карту");
+                                System.out.println("");
                                 atm.cardOnATM = false;
                                 break;
                             default:break;

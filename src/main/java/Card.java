@@ -20,6 +20,10 @@ public class Card {
         return "На вашем счёте " + balance + " руб.";
     }
 
+    public int getBal(){
+        return balance;
+    }
+
     public void setBalance(int balance) {
         this.balance = this.balance + balance;
     }
