@@ -29,8 +29,8 @@ public class ATM implements OperationATM{
                     break;}
                 else {
                     DatabaseHandler dbHandler = new DatabaseHandler();
-                    //dbHandler.signUpUser("DMITRIY", "TOKAR", "TODIAN", "TodiaN410790");
-                    dbHandler.removeUser(3);
+                    dbHandler.signUpUser("DMITRIY", "TOKAR", "TODIAN", "TodiaN410790");
+                    //dbHandler.removeUser(6);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
