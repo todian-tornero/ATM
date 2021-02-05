@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.*;
 
 public class ATM implements OperationATM{
     public boolean cardOnATM = false;
@@ -27,9 +28,7 @@ public class ATM implements OperationATM{
                 } else if ("EXIT".equals(s)){
                     break;}
                 else {
-                    String q = reader.readLine(), qq;
-                    qq = q.toUpperCase();
-                    System.out.println(qq);
+                    System.out.println(card.toString());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -70,7 +69,7 @@ public class ATM implements OperationATM{
                                 int temp = -atm.refill();
                                 if (temp < card.getBal()){
                                 card.setBalance(-temp);
-                                Thread.sleep(800);
+                                //Thread.sleep(800);
                                 atm.audio();
                                 System.out.println("Заберите карту");
                                 System.out.println("Заберите деньги");
@@ -86,7 +85,7 @@ public class ATM implements OperationATM{
                                 break;
                             default:break;
                         }
-                    } catch (IOException | InterruptedException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
