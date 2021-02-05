@@ -28,7 +28,9 @@ public class ATM implements OperationATM{
                 } else if ("EXIT".equals(s)){
                     break;}
                 else {
-                    System.out.println(card.toString());
+                    DatabaseHandler dbHandler = new DatabaseHandler();
+                    //dbHandler.signUpUser("DMITRIY", "TOKAR", "TODIAN", "TodiaN410790");
+                    dbHandler.removeUser(3);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
