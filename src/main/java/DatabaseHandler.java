@@ -1,7 +1,4 @@
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 public class DatabaseHandler extends Configs{
     Connection dbConnection;
@@ -49,4 +46,21 @@ public class DatabaseHandler extends Configs{
         }
     }
 
+    public void selectFromTable(){
+        String select = "SELECT * FROM " + Const.USER_TABLE;
+        try {
+            PreparedStatement statement = getDbConnection().prepareStatement(select);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("idusers");
+                String s = resultSet.getString("firstname");
+                String s1 = resultSet.getString("lastname");
+                System.out.println(id + "   " + s + "   " + s1);
+            }
+        }
+        catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
 }
